@@ -26,6 +26,10 @@ hNode::hNode(){
     // the valueArr is set to NULL
     // the valuesCt and the size are set to 0
     // You need this to make an array of type hNode (aka the map in hashMap)
+    key = "";
+    valueArr = nullptr;
+    valuesCt = 0;
+    size = 0;
 }
 hNode::hNode(string s, string v){
     // this constructor sets the key in the node to be s,
@@ -34,22 +38,36 @@ hNode::hNode(string s, string v){
     // you should then create a new valueArr of size 450 on the heap.
     // Then set the first value in the valueArr to be v
     // and the valuesCt to be 1 (since you just added a value)
-
+    key = s;
+    size = 450;
+    valueArr = new string[size];
+    valueArr[0] = v;
+    valuesCt = 1;
 }
 void hNode::addValue(string v) {
     // this method is short - you just add v to the end of the values in the valueArr and
     // then increase the valuesCt.
     // I put in a warning for if you have more values in the valueArr than the size of the
     // array.
-
+    if (valuesCt < size) {
+        valueArr[valuesCt] = v;
+        valuesCt++;
+    } else {
+        cout << "Warning: valueArr full for key: " << key << endl;
+    }
 }
 
 string hNode::getRandValue() {
     // this is another short method - just generates a random number less than the
     // count of the values in teh valueArr, and then returns the word at that index
     // in the valueArr.  If the valueArr is empty, it returns an empty string.
-
+    if (valuesCt == 0) return "";
+    int randNum = rand() % valuesCt;
+    return valueArr[randNum];
 }
 hNode::~hNode() {
     // destructor - make sure you delete the valueArr since it's on hte heap
+    if (valueArr != nullptr) {
+        delete[] valueArr;
+    }
 }
