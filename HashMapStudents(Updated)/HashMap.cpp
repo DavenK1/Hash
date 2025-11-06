@@ -63,7 +63,7 @@ void hashMap::addKeyandValue(string k, string v) {
 int hashMap::getIndex(string k) {
 	//This method simply uses whichHashFn to determine which hashing function to call with the key.
 	// it then returns that index
-
+}
 int hashMap::dealWithCollisions(string k, int i) {
 	/* this method is really short and straightforward.  It determines which collision function to
 	 * call based on the whichCOllisionFn field in hashMap, then calls that collision function, and
