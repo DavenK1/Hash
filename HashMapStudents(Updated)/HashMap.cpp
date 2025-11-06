@@ -29,6 +29,16 @@ hashMap::hashMap(int hfn, int cfn) {
 	// collision, your collision function may also result in collisions.  We want to keep
 	// track of that in the collisionsCt. THat way we can measure the efficiency of our
 	// hashing and collision functions.
+
+	whichHashFn = hfn;
+	whichCollisionFn = cfn;
+	first = "I";
+	mapSize = 57;
+	keysCt = 0;
+	map = new hNode*[mapSize];
+	for (int i = 0; i < mapSize; i++) {
+		map[i] = nullptr;
+	}
 }
 void hashMap::addKeyandValue(string k, string v) {
 	// this method finds if and how we need to incorporate the key and/or its accompanying
@@ -60,6 +70,7 @@ int hashMap::dealWithCollisions(string k, int i) {
 	 * returns the index that collision function returned.  That's it.
 	 * for test 1 it will call CollFn1 (the one I gave you)
 	 */
+
 }
 int hashMap::collFn1(string k, int i) {
 	// My ridiculously simple collision function that uses linear probing.
