@@ -58,11 +58,26 @@ void hashMap::addKeyandValue(string k, string v) {
 	//    where the key is located (this is a hashCollision - so increase the hashCollisionCt),
 	//    it now calls the dealWithCollisions method (described below)
 	//
+	int const i = getIndex(k);
+	if (map[i] == nullptr) {
+		map[i] = new hNode(k,v);
+	} else if (map[i] && map[i]->key == k) {
+		map[i]->addValue(v);
+	} else {
+		hashCollisionsCt++;
+		dealWithCollisions(k,i);
+	}
 }
 
 int hashMap::getIndex(string k) {
 	//This method simply uses whichHashFn to determine which hashing function to call with the key.
 	// it then returns that index
+	if (whichHashFn == 1)
+		return hashFn1(k);
+	else if (whichHashFn == 2)
+		return hashFn2(k);
+	else
+		return hashFn3(k);
 }
 int hashMap::dealWithCollisions(string k, int i) {
 	/* this method is really short and straightforward.  It determines which collision function to
