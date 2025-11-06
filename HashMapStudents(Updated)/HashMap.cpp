@@ -70,7 +70,16 @@ int hashMap::dealWithCollisions(string k, int i) {
 	 * returns the index that collision function returned.  That's it.
 	 * for test 1 it will call CollFn1 (the one I gave you)
 	 */
-
+	if (whichCollisionFn == 1)
+		return collFn1(k, i);
+	else if (whichCollisionFn == 2)
+		return collFn2(k, i);
+	else if (whichCollisionFn == 3)
+		return collFn3(k, i);
+	else {
+		cout << "Invalid" << endl;
+		return -1;
+	}
 }
 int hashMap::collFn1(string k, int i) {
 	// My ridiculously simple collision function that uses linear probing.
@@ -105,6 +114,9 @@ void hashMap::insertNewKeyandValue(string k, string v, int ind) {
 	// It increases the number of keys in the map (aka keysCt)
 	//
 	// and then it calls ckIfNeedToRehash()
+	map[ind] = new hNode(k, v);
+	keysCt ++;
+	ckIfNeedToRehash();
 }
 
 int hashMap::hashFn1(string k) {
