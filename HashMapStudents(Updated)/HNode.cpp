@@ -67,7 +67,5 @@ string hNode::getRandValue() {
 }
 hNode::~hNode() {
     // destructor - make sure you delete the valueArr since it's on hte heap
-    if (valueArr != nullptr) {
-        delete[] valueArr;
-    }
+    delete[] valueArr;
 }
