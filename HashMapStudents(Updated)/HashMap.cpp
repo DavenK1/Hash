@@ -1,13 +1,13 @@
 //
 // Created by Deb on 4/12/2025.
 //
-
+using namespace std;
 #include "HashMap.h"
 #include "HNode.h"
 #include <iostream>
 #include <math.h>
 #include <string>
-using namespace std;
+
 
 hashMap::hashMap(int hfn, int cfn) {
 	//the constructor for teh hashMap.
@@ -67,7 +67,7 @@ int hashMap::collFn1(string k, int i) {
 
 	int ct = 0;
 	while (ct < mapSize) {
-		i = (i + 1)%mapSize;
+		int i = (i + 1)%mapSize;
 		if (map[i] == NULL || map[i]->key == k) {
 			collisionsCt += ct;
 			return i;
@@ -75,7 +75,7 @@ int hashMap::collFn1(string k, int i) {
 		ct ++;
 	}
 	if (ct == mapSize) {cout <<"ERROR" << endl; return -1;}
-	return i;
+	return ct;
 }
 int hashMap::collFn2(string k,  int i) {
 	// you gotta write to compare with collFn3 to see which collision function works best with the

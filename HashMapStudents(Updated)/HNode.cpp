@@ -13,6 +13,12 @@ hNode::hNode(string s){
     // values.  You're learning hashmaps in this lab.  Stay focused people.)
     // you should then create a new valueArr of size 450 on the heap.
     // since there are no values in the value array yet, it's valuesCt should be set to 0
+
+    key = s;
+    size = 450;
+    valueArr = new string[size];
+    valuesCt = 0;
+
 }
 hNode::hNode(){
     // this constructor is for an empty node.
