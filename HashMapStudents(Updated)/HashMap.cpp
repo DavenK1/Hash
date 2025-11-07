@@ -171,6 +171,12 @@ void hashMap::ckIfNeedToRehash() {
 int hashMap::getClosestPrime() {
 	// function that determines the new map Size.  It doubles the current mapSize, and then finds
 	// the closest prime to that doubled number.  It then returns that prime number
+	mapSize *= 2;
+	for (int i = 0; i < primeSize; i++) {
+		if (mapSize > primes[i]) {
+			return primes[i];
+		}
+	}
 }
 int hashMap::findKeyIndex(string k) {
 	// this method is used by the writeFile method.  It takes as input a word (the key)
