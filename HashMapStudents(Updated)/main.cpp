@@ -22,7 +22,7 @@ int main() {
     hashfn = 1; // for testing - uses my hash fn
     collfn = 1; // for testing - uses my collisionfn
 
-    voice *k = new voice("ShortGEaH.txt","FirstTestOut.txt", hashfn, collfn);
+    voice *k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
     k->readFile();
     k->ht->printMap();
     /**********************************/
@@ -32,7 +32,7 @@ int main() {
      * below main and test1 output (The only output you actually get is optional output I included in
      * the hNode destructor that printed out that I was destroying a key)
     */
-    delete k;
+    //delete k;
 
     /*End of Test 2 */
     /***********************************/
