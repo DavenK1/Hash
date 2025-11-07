@@ -185,7 +185,15 @@ int hashMap::findKeyIndex(string k) {
 	// IF you start at index 0 of the map and loop through every value looking for k,
 	// you will lose 50% of your grade on this project because that is the exact opposite
 	// of the point of a hashmap.
+	int ind = getIndex(k);
+	hNode *j = map[ind];
+	if (j == nullptr || k != j->key) {
+		ind = dealWithCollisions(k, ind);
+	}
+	return ind;
+
 }
+
 void hashMap::reHash() {
 	// This is a challenging method.
 	// you're doubling the hashmap size and then taking the size up to the nearest prime.
