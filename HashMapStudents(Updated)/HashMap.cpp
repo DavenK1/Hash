@@ -167,6 +167,9 @@ void hashMap::ckIfNeedToRehash() {
 	// BIG Mistake I see a lot: dividing an int by an int to see if it's .7 or greater.
 	// int/int results in a floored int.  so 7/10 will be 0, not .7
 
+	if ( float (keysCt) / mapSize >= 0.7) {
+		reHash();
+	}
 }
 
 int hashMap::getClosestPrime() {
