@@ -147,9 +147,13 @@ int hashMap::hashFn1(string k) {
 	return h_index%mapSize;
 }
 int hashMap::hashFn2(string k) {
-	// One of two hashing functions you'll be writing to try to see which function works most
-	// efficiently with the data.  Right now it just returns 2.  Not good.
-	return 2;
+	long h_index = 0;
+
+	for (int i = 0; i < k.length(); i++) {
+		constexpr int prime = 31;
+		h_index = (h_index * prime + k[i]) % mapSize;
+	}
+	return h_index;
 }
 int hashMap::hashFn3(string k) {
 	// The second of two hashing functions you'll be writing to try to see which function works most
@@ -187,7 +191,15 @@ int hashMap::findKeyIndex(string k) {
 	// IF you start at index 0 of the map and loop through every value looking for k,
 	// you will lose 50% of your grade on this project because that is the exact opposite
 	// of the point of a hashmap.
+	int ind = getIndex(k);
+	hNode *j = map[ind];
+	if (j == nullptr || k != j->key) {
+		ind = dealWithCollisions(k, ind);
+	}
+	return ind;
+
 }
+
 void hashMap::reHash() {
 	// This is a challenging method.
 	// you're doubling the hashmap size and then taking the size up to the nearest prime.
