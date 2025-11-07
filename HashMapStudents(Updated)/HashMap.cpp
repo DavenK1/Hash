@@ -147,9 +147,13 @@ int hashMap::hashFn1(string k) {
 	return h_index%mapSize;
 }
 int hashMap::hashFn2(string k) {
-	// One of two hashing functions you'll be writing to try to see which function works most
-	// efficiently with the data.  Right now it just returns 2.  Not good.
-	return 2;
+	long h_index = 0;
+
+	for (int i = 0; i < k.length(); i++) {
+		constexpr int prime = 31;
+		h_index = (h_index * prime + k[i]) % mapSize;
+	}
+	return h_index;
 }
 int hashMap::hashFn3(string k) {
 	// The second of two hashing functions you'll be writing to try to see which function works most
