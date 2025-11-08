@@ -115,7 +115,19 @@ int hashMap::collFn1(string k, int i) {
 int hashMap::collFn2(string k,  int i) {
 	// you gotta write to compare with collFn3 to see which collision function works best with the
 	// data we're using.
-	return 2;
+	int ct = 1;
+	int c1 = 3;
+	int c2 = 7;
+	while (ct < mapSize) {
+		int ind = (i +  c1 * ct + c2 + ct * ct)%mapSize;
+		if (map[ind] == NULL || map[ind]->key == k) {
+			collisionsCt += ct;
+			return ind;
+		}
+		ct ++;
+	}
+	if (ct == mapSize) {cout <<"ERROR" << endl; return -1;}
+	return ct;
 }
 int hashMap::collFn3(string k, int i) {
 	// you gotta write to see which collision function works best
