@@ -131,7 +131,19 @@ int hashMap::collFn2(string k,  int i) {
 }
 int hashMap::collFn3(string k, int i) {
 	// you gotta write to see which collision function works best
-	return 3;
+	// with the data we're using
+	int ct = 1;
+	int step = (hashFn2(k) % (mapSize - 1)) + 1;
+
+	while (ct < mapSize) {
+		int ind = (i + ct * step )%mapSize;
+		if (map[ind] == NULL || map[ind]->key == k) {
+			collisionsCt += ct;
+			return ind;
+		}
+		ct++;
+	}
+	return -1;
 }
 
 void hashMap::insertNewKeyandValue(string k, string v, int ind) {
@@ -170,7 +182,11 @@ int hashMap::hashFn2(string k) {
 int hashMap::hashFn3(string k) {
 	// The second of two hashing functions you'll be writing to try to see which function works most
 	// efficiently with the data.  Right now it just returns 3.  Not good.
-	return 3;
+	long hash = 5381;
+	for (int i = 0; i < k.length(); i++) {
+		hash = ((hash << 5) + hash) % mapSize;
+	}
+	return hash % mapSize;
 }
 
 void hashMap::ckIfNeedToRehash() {
