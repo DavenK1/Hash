@@ -60,12 +60,13 @@ void hashMap::addKeyandValue(string k, string v) {
 	//
 	int const i = getIndex(k);
 	if (map[i] == nullptr) {
-		map[i] = new hNode(k,v);
+		insertNewKeyandValue(k, v, i);
 	} else if (map[i] && map[i]->key == k) {
 		map[i]->addValue(v);
 	} else {
 		hashCollisionsCt++;
-		dealWithCollisions(k,i);
+		int newIndex = dealWithCollisions(k,i);
+		insertNewKeyandValue(k, v, newIndex);
 	}
 }
 
@@ -184,7 +185,7 @@ int hashMap::hashFn3(string k) {
 	// efficiently with the data.  Right now it just returns 3.  Not good.
 	long hash = 5381;
 	for (int i = 0; i < k.length(); i++) {
-		hash = ((hash << 5) + hash) % mapSize;
+		hash = ((hash << 5) + hash + k[i]) % mapSize;
 	}
 	return hash % mapSize;
 }
@@ -203,12 +204,13 @@ void hashMap::ckIfNeedToRehash() {
 int hashMap::getClosestPrime() {
 	// function that determines the new map Size.  It doubles the current mapSize, and then finds
 	// the closest prime to that doubled number.  It then returns that prime number
-	mapSize *= 2;
+	int newSize = mapSize * 2;
 	for (int i = 0; i < primeSize; i++) {
-		if (mapSize > primes[i]) {
+		if (primes[i] >= newSize) {
 			return primes[i];
 		}
 	}
+	return primes[primeSize - 1];
 }
 int hashMap::findKeyIndex(string k) {
 	// this method is used by the writeFile method.  It takes as input a word (the key)
@@ -236,17 +238,19 @@ void hashMap::reHash() {
 	// Once done, you'll need to find where to insert each of the nodes from the old map
 	// into your newly created map.  You can use the function(s) you've already written
 	// for this.
-	getClosestPrime();
+	int newSize = getClosestPrime();
 	hNode **oldMap = map;
 	int oldSize = mapSize;
+	mapSize = newSize;
 	map = new hNode*[mapSize];
 	for (int i = 0; i < mapSize; i++) {
 		map[i] = nullptr;
 	}
+	int oldKeysCt = keysCt;
 	keysCt = 0;
 
 	for (int i = 0; i < oldSize; i++) {
-		if (oldMap[i] == nullptr) {
+		if (oldMap[i] != nullptr) {
 			string key = oldMap[i]->key;
 			int newIndex = getIndex(key);
 			if (map[newIndex] == nullptr) {
@@ -257,7 +261,6 @@ void hashMap::reHash() {
 		keysCt++;
 		}
 	}
-
 }
 hashMap::~hashMap() {
 	// Destructor.  deletes every node in the map, and then deletes the map

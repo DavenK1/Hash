@@ -51,7 +51,7 @@ int main() {
      * it later in the writeFile method, but it might come in useful in the reHash method as
      * well.
      * */
-     k = new voice("MedGEaH.txt","SecondTestOut.txt", hashfn, collfn);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\MedGEaH.txt)","SecondTestOut.txt", hashfn, collfn);
      k->readFile();
      k->ht->printMap();
      /* End of test 3*/
@@ -62,10 +62,12 @@ int main() {
   * Write your first hashing function.
   * delete k;
   * Test your hashing function with:
-  * hashfn = 2;
-  * k = new voice("ShortGEaH.txt","FirstTestOut.txt", hashfn, collfn);
-    k->readFile();
-    k->ht->printMap();
+  */
+    // hashfn = 2;
+    // k = new voice("ShortGEaH.txt","FirstTestOut.txt", hashfn, collfn);
+    // k->readFile();
+    // k->ht->printMap();
+    /*
   * If that works, try it with the larger data set:
   * delete k;
   * k = new voice("MedGEaH.txt","FirstTestOut.txt", hashfn, collfn);
