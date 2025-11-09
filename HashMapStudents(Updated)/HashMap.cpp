@@ -220,6 +220,28 @@ void hashMap::reHash() {
 	// Once done, you'll need to find where to insert each of the nodes from the old map
 	// into your newly created map.  You can use the function(s) you've already written
 	// for this.
+	getClosestPrime();
+	hNode **oldMap = map;
+	int oldSize = mapSize;
+	map = new hNode*[mapSize];
+	for (int i = 0; i < mapSize; i++) {
+		map[i] = nullptr;
+	}
+	keysCt = 0;
+
+	for (int i = 0; i < oldSize; i++) {
+		if (oldMap[i] == nullptr) {
+			string key = oldMap[i]->key;
+			int newIndex = getIndex(key);
+			if (map[newIndex] == nullptr) {
+				map[newIndex] = oldMap[i];
+			} else {
+				map[dealWithCollisions(key, newIndex)] = oldMap[i];
+			}
+		keysCt++;
+		}
+	}
+
 }
 hashMap::~hashMap() {
 	// Destructor.  deletes every node in the map, and then deletes the map
