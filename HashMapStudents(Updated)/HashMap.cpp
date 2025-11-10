@@ -32,6 +32,8 @@ hashMap::hashMap(int hfn, int cfn) {
 
 	whichHashFn = hfn;
 	whichCollisionFn = cfn;
+	hashCollisionsCt = 0;
+	collisionsCt = 0;
 	first = "I";
 	mapSize = 57;
 	keysCt = 0;
