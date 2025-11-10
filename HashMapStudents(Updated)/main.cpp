@@ -22,7 +22,7 @@ int main() {
     hashfn = 1; // for testing - uses my hash fn
     collfn = 1; // for testing - uses my collisionfn
 
-    voice *k = new voice(R"(C:\Users\daven\CLionProjects\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
+    voice *k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
     k->readFile();
     k->ht->printMap();
     /**********************************/
@@ -33,7 +33,6 @@ int main() {
      * the hNode destructor that printed out that I was destroying a key)
     */
     delete k;
-    cout << "ran" << endl;
 
     /*End of Test 2 */
     /***********************************/
@@ -52,62 +51,62 @@ int main() {
      * it later in the writeFile method, but it might come in useful in the reHash method as
      * well.
      * */
-     // k = new voice("MedGEaH.txt","SecondTestOut.txt", hashfn, collfn);
-     // k->readFile();
-     // k->ht->printMap();
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\MedGEaH.txt)","SecondTestOut.txt", hashfn, collfn);
+     k->readFile();
+     k->ht->printMap();
      /* End of test 3*/
- /* Part 4:
-  * from now on I can't give you definitive output because it depends on what hashing function you write and what
-  * collision function you write.
-  * I am giving you the steps for how I'd approach this
-  * Write your first hashing function.
-  * delete k;
-  * Test your hashing function with:
-  * hashfn = 2;
-  * k = new voice("ShortGEaH.txt","FirstTestOut.txt", hashfn, collfn);
-    k->readFile();
-    k->ht->printMap();
-  * If that works, try it with the larger data set:
-  * delete k;
-  * k = new voice("MedGEaH.txt","FirstTestOut.txt", hashfn, collfn);
-    k->readFile();
-    k->ht->printMap();
+  /* Part 4:
+   * from now on I can't give you definitive output because it depends on what hashing function you write and what
+   * collision function you write.
+   * I am giving you the steps for how I'd approach this
+    Write your first hashing function. */
+     delete k;
+   // Test your hashing function with:
+     hashfn = 2;
+     k = new voice("ShortGEaH.txt","FirstTestOut.txt", hashfn, collfn);
+     k->readFile();
+     k->ht->printMap();
+    // If that works, try it with the larger data set:
+     delete k;
+     k = new voice("MedGEaH.txt","FirstTestOut.txt", hashfn, collfn);
+     k->readFile();
+     k->ht->printMap();
+  /*
+     If all of this works, write your second hashing function and repeat from delete k down to the print map,
+     only set hashfn to 3;
 
-    If all of this works, write your second hashing function and repeat from delete k down to the print map,
-    only set hashfn to 3;
+     Once you have all this working, switch the hashfn to 1, and the collfn to 2, and then write your first
+     collision function
+     delete the old map (k)
+     and read in the short text file  for testing. (steps are the same as above)
 
-    Once you have all this working, switch the hashfn to 1, and the collfn to 2, and then write your first
-    collision function
-    delete the old map (k)
-    and read in the short text file  for testing. (steps are the same as above)
+     Then test on the MedGEaH text file
 
-    Then test on the MedGEaH text file
+     THen write your second collision function, switch collfn to 3, and test your second collision function
+     on the ShortGEaH text file.
 
-    THen write your second collision function, switch collfn to 3, and test your second collision function
-    on the ShortGEaH text file.
+     Then on the MedGEaH text file.
 
-    Then on the MedGEaH text file.
+     THen test the 4 permutations:
+     hashfn = 2, collfn = 2; hashfn = 2, collfn = 3; hashfn = 3, collfn = 2; hashfn = 3, collfn = 3;
 
-    THen test the 4 permutations:
-    hashfn = 2, collfn = 2; hashfn = 2, collfn = 3; hashfn = 3, collfn = 2; hashfn = 3, collfn = 3;
+     When you've got all that working, add in a call to
+     k->writeFile();
 
-    When you've got all that working, add in a call to
-    k->writeFile();
-
-    And, once that's working:
-    add the following code:
-    k = new voice("DrSeuss.txt","SeussOut2_2.txt", 2, 2);
-    k->readFile();
-    k->writeFile();
-    delete k;
-    k = new voice("DrSeuss.txt","SeussOut3_2.txt", 3, 2);
-    delete k;
-    k = new voice("DrSeuss.txt","SeussOut2_3.txt", 2, 3);
-    delete k;
-    k = new voice("DrSeuss.txt","SeussOut3_3.txt", 3, 3);
-  *
-  *I'm including my SeussOut1_1.txt at the very bottom
-  */
+     And, once that's working:
+     add the following code:
+     k = new voice("DrSeuss.txt","SeussOut2_2.txt", 2, 2);
+     k->readFile();
+     k->writeFile();
+     delete k;
+     k = new voice("DrSeuss.txt","SeussOut3_2.txt", 3, 2);
+     delete k;
+     k = new voice("DrSeuss.txt","SeussOut2_3.txt", 2, 3);
+     delete k;
+     k = new voice("DrSeuss.txt","SeussOut3_3.txt", 3, 3);
+   *
+   *I'm including my SeussOut1_1.txt at the very bottom
+   */
  // delete k;
  // k = new voice("DrSeuss.txt","SeussOut1_1.txt", 1, 1);
  // k->readFile();

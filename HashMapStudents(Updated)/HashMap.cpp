@@ -61,12 +61,17 @@ void hashMap::addKeyandValue(string k, string v) {
 	int const i = getIndex(k);
 	if (map[i] == nullptr) {
 		insertNewKeyandValue(k, v, i);
-	} else if (map[i] && map[i]->key == k) {
+	} else if (map[i]->key == k) {
 		map[i]->addValue(v);
 	} else {
 		hashCollisionsCt++;
-		int newIndex = dealWithCollisions(k,i);
-		insertNewKeyandValue(k, v, newIndex);
+		int newIndex = dealWithCollisions(k, i);
+
+		if (map[newIndex] == nullptr) {
+			insertNewKeyandValue(k, v, newIndex);
+		} else if (map[newIndex]->key == k) {
+			map[newIndex]->addValue(v);
+		}
 	}
 }
 
@@ -103,7 +108,7 @@ int hashMap::collFn1(string k, int i) {
 
 	int ct = 0;
 	while (ct < mapSize) {
-		int i = (i + 1)%mapSize;
+		i = (i + 1)%mapSize;
 		if (map[i] == NULL || map[i]->key == k) {
 			collisionsCt += ct;
 			return i;
@@ -250,15 +255,18 @@ void hashMap::reHash() {
 	for (int i = 0; i < mapSize; i++) {
 		map[i] = nullptr;
 	}
-	keysCt = 0; // Will be rebuilt from scratch
+	keysCt = 0;
 
 	for (int i = 0; i < oldSize; i++) {
 		if (oldMap[i] != nullptr) {
-			hNode* temp = oldMap[i];
-			for (int j = 0; j < temp->valuesCt; j++) {
-				addKeyandValue(temp->key, temp->valueArr[j]);
+			string key = oldMap[i]->key;
+			int newIndex = getIndex(key);
+
+			while (map[newIndex] != nullptr && map[newIndex]->key != key) {
+				newIndex = (newIndex + 1) % mapSize;
 			}
-			delete temp;
+			map[newIndex] = oldMap[i];
+			keysCt++;
 		}
 	}
 	delete[] oldMap;
