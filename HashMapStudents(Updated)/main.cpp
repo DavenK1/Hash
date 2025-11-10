@@ -19,8 +19,8 @@ int main() {
      * 3) once you have these working, you can test the following code and you should get exactly the
      *    output I've included below this main function (after it closes)
      */
-    hashfn = 1; // for testing - uses my hash fn
-    collfn = 1; // for testing - uses my collisionfn
+    hashfn = 3; // for testing - uses my hash fn
+    collfn = 3; // for testing - uses my collisionfn
 
     voice *k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
     k->readFile();
@@ -91,10 +91,12 @@ int main() {
      hashfn = 2, collfn = 2; hashfn = 2, collfn = 3; hashfn = 3, collfn = 2; hashfn = 3, collfn = 3;
 
      When you've got all that working, add in a call to
+*/
      k->writeFile();
 
-     And, once that's working:
-     add the following code:
+     // And, once that's working:
+     // add the following code:
+
      k = new voice("DrSeuss.txt","SeussOut2_2.txt", 2, 2);
      k->readFile();
      k->writeFile();
@@ -104,14 +106,14 @@ int main() {
      k = new voice("DrSeuss.txt","SeussOut2_3.txt", 2, 3);
      delete k;
      k = new voice("DrSeuss.txt","SeussOut3_3.txt", 3, 3);
-   *
-   *I'm including my SeussOut1_1.txt at the very bottom
-   */
- // delete k;
- // k = new voice("DrSeuss.txt","SeussOut1_1.txt", 1, 1);
- // k->readFile();
- // k->writeFile();
- //    return 0;
+   // *
+   // *I'm including my SeussOut1_1.txt at the very bottom
+   // */
+ delete k;
+ k = new voice("DrSeuss.txt","SeussOut1_1.txt", 1, 1);
+ k->readFile();
+ k->writeFile();
+    return 0;
 }
 /*******************************************************************************/
 /* Test 1 output:

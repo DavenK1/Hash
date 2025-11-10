@@ -124,11 +124,13 @@ int hashMap::collFn1(string k, int i) {
 int hashMap::collFn2(string k,  int i) {
 	// you gotta write to compare with collFn3 to see which collision function works best with the
 	// data we're using.
-	int ct = 1;
+	int ct = 0;
 	int c1 = 3;
 	int c2 = 7;
+	int originalI = i;
+
 	while (ct < mapSize) {
-		int ind = (i +  c1 * ct + c2 + ct * ct)%mapSize;
+		int ind = (originalI +  c1 * ct + c2 * ct * ct)%mapSize;
 		if (map[ind] == NULL || map[ind]->key == k) {
 			collisionsCt += ct;
 			return ind;
@@ -143,9 +145,10 @@ int hashMap::collFn3(string k, int i) {
 	// with the data we're using
 	int ct = 1;
 	int step = (hashFn2(k) % (mapSize - 1)) + 1;
+	int originalI = i;
 
 	while (ct < mapSize) {
-		int ind = (i + ct * step )%mapSize;
+		int ind = (originalI + ct * step )%mapSize;
 		if (map[ind] == NULL || map[ind]->key == k) {
 			collisionsCt += ct;
 			return ind;
@@ -263,7 +266,7 @@ void hashMap::reHash() {
 			int newIndex = getIndex(key);
 
 			while (map[newIndex] != nullptr && map[newIndex]->key != key) {
-				newIndex = (newIndex + 1) % mapSize;
+				newIndex = dealWithCollisions(key, newIndex);
 			}
 			map[newIndex] = oldMap[i];
 			keysCt++;
