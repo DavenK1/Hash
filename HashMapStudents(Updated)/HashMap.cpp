@@ -103,7 +103,7 @@ int hashMap::collFn1(string k, int i) {
 
 	int ct = 0;
 	while (ct < mapSize) {
-		int idx = (i + 1)%mapSize;
+		int i = (i + 1)%mapSize;
 		if (map[i] == NULL || map[i]->key == k) {
 			collisionsCt += ct;
 			return i;
@@ -240,31 +240,28 @@ void hashMap::reHash() {
 	// in the map to NULL (make sure you don't lose track of the old map!)
 	// Once done, you'll need to find where to insert each of the nodes from the old map
 	// into your newly created map.  You can use the function(s) you've already written
-	// for this.
+	// for this.void hashMap::reHash() {
 	int newSize = getClosestPrime();
-	hNode **oldMap = map;
+	hNode** oldMap = map;
 	int oldSize = mapSize;
+
 	mapSize = newSize;
 	map = new hNode*[mapSize];
 	for (int i = 0; i < mapSize; i++) {
 		map[i] = nullptr;
 	}
-	int oldKeysCt = keysCt;
-	keysCt = 0;
+	keysCt = 0; // Will be rebuilt from scratch
 
 	for (int i = 0; i < oldSize; i++) {
 		if (oldMap[i] != nullptr) {
-			string key = oldMap[i]->key;
-			int newIndex = getIndex(key);
-			if (map[newIndex] == nullptr) {
-				map[newIndex] = oldMap[i];
-			} else {
-				map[dealWithCollisions(key, newIndex)] = oldMap[i];
+			hNode* temp = oldMap[i];
+			for (int j = 0; j < temp->valuesCt; j++) {
+				addKeyandValue(temp->key, temp->valueArr[j]);
 			}
-			oldMap[i] = nullptr;
-			keysCt++;
+			delete temp;
 		}
 	}
+	delete[] oldMap;
 }
 hashMap::~hashMap() {
 	// Destructor.  deletes every node in the map, and then deletes the map
