@@ -60,12 +60,13 @@ void hashMap::addKeyandValue(string k, string v) {
 	//
 	int const i = getIndex(k);
 	if (map[i] == nullptr) {
-		map[i] = new hNode(k,v);
+		insertNewKeyandValue(k, v, i);
 	} else if (map[i] && map[i]->key == k) {
 		map[i]->addValue(v);
 	} else {
 		hashCollisionsCt++;
-		dealWithCollisions(k,i);
+		int newIndex = dealWithCollisions(k,i);
+		insertNewKeyandValue(k, v, newIndex);
 	}
 }
 
@@ -102,7 +103,7 @@ int hashMap::collFn1(string k, int i) {
 
 	int ct = 0;
 	while (ct < mapSize) {
-		int i = (i + 1)%mapSize;
+		int idx = (i + 1)%mapSize;
 		if (map[i] == NULL || map[i]->key == k) {
 			collisionsCt += ct;
 			return i;
@@ -134,7 +135,19 @@ int hashMap::collFn2(string k,  int i) {
 }
 int hashMap::collFn3(string k, int i) {
 	// you gotta write to see which collision function works best
-	return 3;
+	// with the data we're using
+	int ct = 1;
+	int step = (hashFn2(k) % (mapSize - 1)) + 1;
+
+	while (ct < mapSize) {
+		int ind = (i + ct * step )%mapSize;
+		if (map[ind] == NULL || map[ind]->key == k) {
+			collisionsCt += ct;
+			return ind;
+		}
+		ct++;
+	}
+	return -1;
 }
 
 void hashMap::insertNewKeyandValue(string k, string v, int ind) {
@@ -173,7 +186,11 @@ int hashMap::hashFn2(string k) {
 int hashMap::hashFn3(string k) {
 	// The second of two hashing functions you'll be writing to try to see which function works most
 	// efficiently with the data.  Right now it just returns 3.  Not good.
-	return 3;
+	long hash = 5381;
+	for (int i = 0; i < k.length(); i++) {
+		hash = ((hash << 5) + hash + k[i]) % mapSize;
+	}
+	return hash % mapSize;
 }
 
 void hashMap::ckIfNeedToRehash() {
@@ -190,12 +207,13 @@ void hashMap::ckIfNeedToRehash() {
 int hashMap::getClosestPrime() {
 	// function that determines the new map Size.  It doubles the current mapSize, and then finds
 	// the closest prime to that doubled number.  It then returns that prime number
-	mapSize *= 2;
+	int newSize = mapSize * 2;
 	for (int i = 0; i < primeSize; i++) {
-		if (mapSize > primes[i]) {
+		if (primes[i] >= newSize) {
 			return primes[i];
 		}
 	}
+	return primes[primeSize - 1];
 }
 int hashMap::findKeyIndex(string k) {
 	// this method is used by the writeFile method.  It takes as input a word (the key)
@@ -223,17 +241,19 @@ void hashMap::reHash() {
 	// Once done, you'll need to find where to insert each of the nodes from the old map
 	// into your newly created map.  You can use the function(s) you've already written
 	// for this.
-	getClosestPrime();
+	int newSize = getClosestPrime();
 	hNode **oldMap = map;
 	int oldSize = mapSize;
+	mapSize = newSize;
 	map = new hNode*[mapSize];
 	for (int i = 0; i < mapSize; i++) {
 		map[i] = nullptr;
 	}
+	int oldKeysCt = keysCt;
 	keysCt = 0;
 
 	for (int i = 0; i < oldSize; i++) {
-		if (oldMap[i] == nullptr) {
+		if (oldMap[i] != nullptr) {
 			string key = oldMap[i]->key;
 			int newIndex = getIndex(key);
 			if (map[newIndex] == nullptr) {
@@ -241,10 +261,10 @@ void hashMap::reHash() {
 			} else {
 				map[dealWithCollisions(key, newIndex)] = oldMap[i];
 			}
-		keysCt++;
+			oldMap[i] = nullptr;
+			keysCt++;
 		}
 	}
-
 }
 hashMap::~hashMap() {
 	// Destructor.  deletes every node in the map, and then deletes the map
@@ -253,8 +273,8 @@ hashMap::~hashMap() {
 			delete map[i];
 		}
 	}
+	cout << "Hash Map Destroyed!" << endl;
 	delete[] map;
-
 }
 
 void hashMap::printMap() {

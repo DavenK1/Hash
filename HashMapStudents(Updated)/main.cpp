@@ -108,11 +108,11 @@ int main() {
   *
   *I'm including my SeussOut1_1.txt at the very bottom
   */
- delete k;
- k = new voice("DrSeuss.txt","SeussOut1_1.txt", 1, 1);
- k->readFile();
- k->writeFile();
-    return 0;
+ // delete k;
+ // k = new voice("DrSeuss.txt","SeussOut1_1.txt", 1, 1);
+ // k->readFile();
+ // k->writeFile();
+ //    return 0;
 }
 /*******************************************************************************/
 /* Test 1 output:
