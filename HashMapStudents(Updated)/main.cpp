@@ -22,7 +22,7 @@ int main() {
     hashfn = 1; // for testing - uses my hash fn
     collfn = 1; // for testing - uses my collisionfn
 
-    voice *k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
+    voice *k = new voice(R"(C:\Users\daven\CLionProjects\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
     k->readFile();
     k->ht->printMap();
     /**********************************/
@@ -32,7 +32,8 @@ int main() {
      * below main and test1 output (The only output you actually get is optional output I included in
      * the hNode destructor that printed out that I was destroying a key)
     */
-    //delete k;
+    delete k;
+    cout << "ran" << endl;
 
     /*End of Test 2 */
     /***********************************/
@@ -51,9 +52,9 @@ int main() {
      * it later in the writeFile method, but it might come in useful in the reHash method as
      * well.
      * */
-     k = new voice("MedGEaH.txt","SecondTestOut.txt", hashfn, collfn);
-     k->readFile();
-     k->ht->printMap();
+     // k = new voice("MedGEaH.txt","SecondTestOut.txt", hashfn, collfn);
+     // k->readFile();
+     // k->ht->printMap();
      /* End of test 3*/
  /* Part 4:
   * from now on I can't give you definitive output because it depends on what hashing function you write and what

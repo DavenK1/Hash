@@ -249,7 +249,7 @@ void hashMap::reHash() {
 hashMap::~hashMap() {
 	// Destructor.  deletes every node in the map, and then deletes the map
 	for (int i = 0; i < mapSize; i++) {
-		if (map[i] != nullptr) {
+		if (map[i] != NULL) {
 			delete map[i];
 		}
 	}
