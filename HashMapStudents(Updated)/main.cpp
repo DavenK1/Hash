@@ -19,8 +19,8 @@ int main() {
      * 3) once you have these working, you can test the following code and you should get exactly the
      *    output I've included below this main function (after it closes)
      */
-    hashfn = 3; // for testing - uses my hash fn
-    collfn = 3; // for testing - uses my collisionfn
+    hashfn = 1; // for testing - uses my hash fn
+    collfn = 1; // for testing - uses my collisionfn
 
     voice *k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
     k->readFile();
@@ -63,12 +63,12 @@ int main() {
      delete k;
    // Test your hashing function with:
      hashfn = 3;
-     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\ShortGEaH.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\FirstTestOut.txt)", hashfn, collfn);
      k->readFile();
      k->ht->printMap();
     // If that works, try it with the larger data set:
      delete k;
-     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\MedGEaH.txt)","FirstTestOut.txt", hashfn, collfn);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\MedGEaH.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\FirstTestOut.txt)", hashfn, collfn);
      k->readFile();
      k->ht->printMap();
   /*
@@ -97,20 +97,20 @@ int main() {
      // And, once that's working:
      // add the following code:
 
-     k = new voice("DrSeuss.txt","SeussOut2_2.txt", 2, 2);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\DrSeuss.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\SeussOut2_2.txt)", 2, 2);
      k->readFile();
      k->writeFile();
      delete k;
-     k = new voice("DrSeuss.txt","SeussOut3_2.txt", 3, 2);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\DrSeuss.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\SeussOut3_2.txt)", 3, 2);
      delete k;
-     k = new voice("DrSeuss.txt","SeussOut2_3.txt", 2, 3);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\DrSeuss.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\SeussOut2_3.txt)", 2, 3);
      delete k;
-     k = new voice("DrSeuss.txt","SeussOut3_3.txt", 3, 3);
+     k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\DrSeuss.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\SeussOut3_3.txt)", 3, 3);
    // *
    // *I'm including my SeussOut1_1.txt at the very bottom
    // */
  delete k;
- k = new voice("DrSeuss.txt","SeussOut1_1.txt", 1, 1);
+ k = new voice(R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\DrSeuss.txt)",R"(C:\Users\brian\OneDrive\Desktop\School 25-26\CISC220\Hash\HashMapStudents(Updated)\SeussOut1_1.txt)", 1, 1);
  k->readFile();
  k->writeFile();
     return 0;

@@ -125,8 +125,8 @@ int hashMap::collFn2(string k,  int i) {
 	// you gotta write to compare with collFn3 to see which collision function works best with the
 	// data we're using.
 	int ct = 0;
-	int c1 = 3;
-	int c2 = 7;
+	int c1 = 1;
+	int c2 = 3;
 	int originalI = i;
 
 	while (ct < mapSize) {
@@ -140,10 +140,11 @@ int hashMap::collFn2(string k,  int i) {
 	if (ct == mapSize) {cout <<"ERROR" << endl; return -1;}
 	return ct;
 }
+
 int hashMap::collFn3(string k, int i) {
 	// you gotta write to see which collision function works best
 	// with the data we're using
-	int ct = 1;
+	int ct = 0;
 	int step = (hashFn2(k) % (mapSize - 1)) + 1;
 	int originalI = i;
 
