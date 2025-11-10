@@ -103,7 +103,7 @@ int hashMap::collFn1(string k, int i) {
 
 	int ct = 0;
 	while (ct < mapSize) {
-		int i = (i + 1)%mapSize;
+		int idx = (i + 1)%mapSize;
 		if (map[i] == NULL || map[i]->key == k) {
 			collisionsCt += ct;
 			return i;
@@ -258,7 +258,8 @@ void hashMap::reHash() {
 			} else {
 				map[dealWithCollisions(key, newIndex)] = oldMap[i];
 			}
-		keysCt++;
+			oldMap[i] = nullptr;
+			keysCt++;
 		}
 	}
 }
@@ -269,8 +270,8 @@ hashMap::~hashMap() {
 			delete map[i];
 		}
 	}
+	cout << "Hash Map Destroyed!" << endl;
 	delete[] map;
-
 }
 
 void hashMap::printMap() {
