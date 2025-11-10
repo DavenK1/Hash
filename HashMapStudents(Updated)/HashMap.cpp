@@ -109,7 +109,10 @@ int hashMap::collFn1(string k, int i) {
 		}
 		ct ++;
 	}
-	if (ct == mapSize) {cout <<"ERROR" << endl; return -1;}
+	if (ct == mapSize) {
+		cout << "lots of collisions" << endl;
+		cout <<"ERROR" << endl; return -1;
+	}
 	return ct;
 }
 int hashMap::collFn2(string k,  int i) {
